@@ -26,7 +26,7 @@ public class Airplane implements Comparable<Airplane> {
 		isLanding = false;
 		landingTime = 300;
 		distance = 100000;
-		uid = (int) (Math.random() * 1000);
+		uid = (int) (Math.random() * 0x1000);
 	}
 	
 	/**

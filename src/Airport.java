@@ -55,40 +55,44 @@ public class Airport {
 		System.out.println();
 		
 		System.out.println("Runways");
-		System.out.println("------------------------------------");
+		System.out.println("+--------+--------+----------------+");
+		System.out.println("| Runway | Flight | Time to Depart |");
+		System.out.println("+--------+--------+----------------+");
 		for (int runway = 0; runway < planesOnRunways.length; runway++) {
 			if (planesOnRunways[runway] == null)
-				System.out.printf("There are no planes on runway %d.\n", runway);
+				System.out.printf("| %02d     | None   | None           |\n", runway);
 			else
-				System.out.printf("Plane %03d is currently on runway %d. It will leave in %d:%02d.\n",
-								   planesOnRunways[runway].getUid(), runway,
+				System.out.printf("| %02d     | %03X    | %d:%02d           |\n",
+								   runway, planesOnRunways[runway].getUid(),
 								   planesOnRunways[runway].getLandingTime() / 60,
 								   planesOnRunways[runway].getLandingTime() % 60);
 		}
 		
+		System.out.println("+--------+--------+----------------+");
+		
 		System.out.println();
 		System.out.println("Approaching planes");
-		System.out.println("------------------------------------");
-		System.out.printf("| %-8s | %-13s | %-16s |\n", "Flight #", "Distance", "Emergency Status");
+		System.out.println("+--------+---------------+-----------+");
+		System.out.println("| Flight | Distance      | Status    |");
+		System.out.println("+--------+---------------+-----------+");
 		for (Airplane plane : readyToLand) {
-			System.out.printf("| %03d      | Ready to land |", plane.getUid());
+			System.out.printf("| %03X    | Ready to land |", plane.getUid());
 			if (plane.hasEmergency())
-				System.out.print(" Emergency |");
+				System.out.println(" Emergency |");
 			else
-				System.out.print(" OK |");
-			
-			System.out.println();
+				System.out.println(" OK        |");
 		}
 		
 		for (Airplane plane : approaching) {
-			System.out.printf("| %03d      | %02dkm away |", plane.getUid(), plane.getDistance() / 1000);
+			System.out.printf("| %03X    | %02dkm away     |", plane.getUid(), plane.getDistance() / 1000);
 			if (plane.hasEmergency())
-				System.out.print(" Emergency |");
+				System.out.println(" Emergency |");
 			else
-				System.out.print(" OK |");
-			
-			System.out.println();
+				System.out.println(" OK        |");
 		}
+		
+		System.out.println("+--------+---------------+-----------+");
+		System.out.flush();
 	}
 	
 }
