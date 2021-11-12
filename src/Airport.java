@@ -12,12 +12,8 @@ public class Airport {
 
 	private PriorityQueue<Airplane> approaching = new PriorityQueue<Airplane>();
 	private PriorityQueue<Airplane> readyToLand = new PriorityQueue<Airplane>();
-	private Airplane planeOnRunway;
+	private Airplane[] planesOnRunways = new Airplane[2];
 	private int currentTime = 0;
-	
-	public Airport() {
-		
-	}
 	
 	public void update(int timestep) {
 		currentTime += timestep;
@@ -36,13 +32,15 @@ public class Airport {
 			readyToLand.add(approaching.poll());
 		}
 		
-		if (planeOnRunway != null) {
-			planeOnRunway.setLanding(true);
-			planeOnRunway.update(timestep);
+		for (int runways = 0; runways < planesOnRunways.length; runways++) {
+			if (planesOnRunways[runways] != null) {
+				planesOnRunways[runways].setLanding(true);
+				planesOnRunways[runways].update(timestep);
+			}
+			
+			if (planesOnRunways[runways] == null || planesOnRunways[runways] != null && planesOnRunways[runways].getLandingTime() < 1)
+				planesOnRunways[runways] = readyToLand.poll();
 		}
-		
-		if (planeOnRunway == null || planeOnRunway != null && planeOnRunway.getLandingTime() < 1)
-			planeOnRunway = readyToLand.poll();
 	}
 	
 	public void printInfo() {
@@ -52,13 +50,17 @@ public class Airport {
 						   currentTime % 3600 / 60, currentTime % 60);
 		System.out.println();
 		
-		if (planeOnRunway == null)
-			System.out.println("There are no planes on the runway.");
-		else
-			System.out.printf("Plane %03d is currently on the runway. It will leave in %d:%02d.\n",
-							   planeOnRunway.getUid(), planeOnRunway.getLandingTime() / 60,
-							   planeOnRunway.getLandingTime() % 60);
+		for (int runway = 0; runway < planesOnRunways.length; runway++) {
+			if (planesOnRunways[runway] == null)
+				System.out.printf("There are no planes on runway %d.\n", runway);
+			else
+				System.out.printf("Plane %03d is currently on runway %d. It will leave in %d:%02d.\n",
+								   planesOnRunways[runway].getUid(), runway,
+								   planesOnRunways[runway].getLandingTime() / 60,
+								   planesOnRunways[runway].getLandingTime() % 60);
+		}
 		
+		System.out.println();
 		for (Airplane plane : readyToLand) {
 			System.out.printf("Plane %03d is ready to land.", plane.getUid());
 			if (plane.hasEmergency())
@@ -68,7 +70,7 @@ public class Airport {
 		}
 		
 		for (Airplane plane : approaching) {
-			System.out.printf("Plane %03d is approaching. It is %dkm away from the airport.", plane.getUid(), plane.getDistance() / 1000);
+			System.out.printf("Plane %03d is approaching. It is %02dkm away from the airport.", plane.getUid(), plane.getDistance() / 1000);
 			if (plane.hasEmergency())
 				System.out.print(" It has an emergency!");
 			

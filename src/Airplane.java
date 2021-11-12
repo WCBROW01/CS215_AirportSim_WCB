@@ -46,7 +46,7 @@ public class Airplane implements Comparable<Airplane> {
 			landingTime -= timestep;
 		
 		if (!readyToLand && !hasEmergency)
-			hasEmergency = Math.random() > 0.98;
+			hasEmergency = Math.random() > 0.99;
 	}
 	
 	/**
