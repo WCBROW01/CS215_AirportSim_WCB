@@ -70,28 +70,28 @@ public class Airport {
 		
 		System.out.println("+--------+--------+----------------+");
 		
-		System.out.println();
-		System.out.println("Approaching planes");
-		System.out.println("+--------+---------------+-----------+");
-		System.out.println("| Flight | Distance      | Status    |");
-		System.out.println("+--------+---------------+-----------+");
+		System.out.print("\033[4;39H");
+		System.out.print("Approaching planes\033[B\033[39G");
+		System.out.print("+--------+---------------+-----------+\033[B\033[39G");
+		System.out.print("| Flight | Distance      | Status    |\033[B\033[39G");
+		System.out.print("+--------+---------------+-----------+\033[B\033[39G");
 		for (Airplane plane : readyToLand) {
 			System.out.printf("| %03X    | Ready to land |", plane.getUid());
 			if (plane.hasEmergency())
-				System.out.println(" Emergency |");
+				System.out.print(" Emergency |\033[B\033[39G");
 			else
-				System.out.println(" OK        |");
+				System.out.print(" OK        |\033[B\033[39G");
 		}
 		
 		for (Airplane plane : approaching) {
 			System.out.printf("| %03X    | %02dkm away     |", plane.getUid(), plane.getDistance() / 1000);
 			if (plane.hasEmergency())
-				System.out.println(" Emergency |");
+				System.out.print(" Emergency |\033[B\033[39G");
 			else
-				System.out.println(" OK        |");
+				System.out.print(" OK        |\033[B\033[39G");
 		}
 		
-		System.out.println("+--------+---------------+-----------+");
+		System.out.print("+--------+---------------+-----------+");
 		System.out.flush();
 	}
 	
