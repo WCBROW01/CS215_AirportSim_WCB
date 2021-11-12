@@ -15,6 +15,10 @@ public class Airport {
 	private Airplane[] planesOnRunways = new Airplane[2];
 	private int currentTime = 0;
 	
+	public Airport() {
+		approaching.add(new Airplane());
+	}
+	
 	public void update(int timestep) {
 		currentTime += timestep;
 		
@@ -32,14 +36,14 @@ public class Airport {
 			readyToLand.add(approaching.poll());
 		}
 		
-		for (int runways = 0; runways < planesOnRunways.length; runways++) {
-			if (planesOnRunways[runways] != null) {
-				planesOnRunways[runways].setLanding(true);
-				planesOnRunways[runways].update(timestep);
+		for (int runway = 0; runway < planesOnRunways.length; runway++) {
+			if (planesOnRunways[runway] != null) {
+				planesOnRunways[runway].setLanding(true);
+				planesOnRunways[runway].update(timestep);
 			}
 			
-			if (planesOnRunways[runways] == null || planesOnRunways[runways] != null && planesOnRunways[runways].getLandingTime() < 1)
-				planesOnRunways[runways] = readyToLand.poll();
+			if (planesOnRunways[runway] == null || planesOnRunways[runway] != null && planesOnRunways[runway].getLandingTime() < 1)
+				planesOnRunways[runway] = readyToLand.poll();
 		}
 	}
 	
@@ -50,6 +54,8 @@ public class Airport {
 						   currentTime % 3600 / 60, currentTime % 60);
 		System.out.println();
 		
+		System.out.println("Runways");
+		System.out.println("------------------------------------");
 		for (int runway = 0; runway < planesOnRunways.length; runway++) {
 			if (planesOnRunways[runway] == null)
 				System.out.printf("There are no planes on runway %d.\n", runway);
@@ -61,18 +67,25 @@ public class Airport {
 		}
 		
 		System.out.println();
+		System.out.println("Approaching planes");
+		System.out.println("------------------------------------");
+		System.out.printf("| %-8s | %-13s | %-16s |\n", "Flight #", "Distance", "Emergency Status");
 		for (Airplane plane : readyToLand) {
-			System.out.printf("Plane %03d is ready to land.", plane.getUid());
+			System.out.printf("| %03d      | Ready to land |", plane.getUid());
 			if (plane.hasEmergency())
-				System.out.print(" It has an emergency!");
+				System.out.print(" Emergency |");
+			else
+				System.out.print(" OK |");
 			
 			System.out.println();
 		}
 		
 		for (Airplane plane : approaching) {
-			System.out.printf("Plane %03d is approaching. It is %02dkm away from the airport.", plane.getUid(), plane.getDistance() / 1000);
+			System.out.printf("| %03d      | %02dkm away |", plane.getUid(), plane.getDistance() / 1000);
 			if (plane.hasEmergency())
-				System.out.print(" It has an emergency!");
+				System.out.print(" Emergency |");
+			else
+				System.out.print(" OK |");
 			
 			System.out.println();
 		}
