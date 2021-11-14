@@ -54,7 +54,8 @@ public class Airport {
 						   currentTime % 3600 / 60, currentTime % 60);
 		System.out.println();
 		
-		System.out.println("Runways");
+		System.out.println("+----------------------------------+");
+		System.out.println("| Runways                          |");
 		System.out.println("+--------+--------+----------------+");
 		System.out.println("| Runway | Flight | Time to Depart |");
 		System.out.println("+--------+--------+----------------+");
@@ -71,7 +72,8 @@ public class Airport {
 		System.out.println("+--------+--------+----------------+");
 		
 		System.out.print("\033[4;39H");
-		System.out.print("Approaching planes\033[B\033[39G");
+		System.out.print("+------------------------------------+\033[B\033[39G");
+		System.out.print("| Approaching planes                 |\033[B\033[39G");
 		System.out.print("+--------+---------------+-----------+\033[B\033[39G");
 		System.out.print("| Flight | Distance      | Status    |\033[B\033[39G");
 		System.out.print("+--------+---------------+-----------+\033[B\033[39G");
