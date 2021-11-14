@@ -15,27 +15,33 @@ public class Airport {
 	private Airplane[] planesOnRunways = new Airplane[2];
 	private int currentTime = 0;
 	
-	public Airport() {
-		approaching.add(new Airplane());
-	}
-	
+	/**
+	 * Updates all queues and the airplanes within the queues.
+	 * Also randomly generates a new airplane.
+	 * @param timestep time in seconds to step forward within simulation
+	 */
 	public void update(int timestep) {
 		currentTime += timestep;
 		
+		// Randomly add new airplane (15% chance)
 		if (Math.random() > 0.85)
 			approaching.add(new Airplane());
 		
+		// Update all planes in approaching and readyToLand queues
 		for (Airplane plane : approaching)
 			plane.update(timestep);
 		
 		for (Airplane plane : readyToLand)
 			plane.update(timestep);
 		
+		// 
 		if (approaching.peek() != null && approaching.peek().getDistance() < 1) {
 			approaching.peek().setReadyToLand(true);
 			readyToLand.add(approaching.poll());
 		}
 		
+		/* Update the plane on each runway and move front of
+		 * readyToLand queue to a runway if there are any empty. */
 		for (int runway = 0; runway < planesOnRunways.length; runway++) {
 			if (planesOnRunways[runway] != null) {
 				planesOnRunways[runway].setLanding(true);
@@ -47,6 +53,15 @@ public class Airport {
 		}
 	}
 	
+	/**
+	 * Displays the TUI for the simulator. ANSI escape codes are used to
+	 * move the cursor around the screen. Works on most terminal emulators,
+	 * but not all. This will not work properly on the classic Windows
+	 * command prompt, but it works on the new Windows Terminal.
+	 * I could make code to properly account for this and clear the screen
+	 * in a special way on Windows, but I won't right now since I won't be
+	 * running this on any Windows boxes.
+	 */
 	public void printInfo() {
 		System.out.print("\033[H\033[2J");
 		System.out.println("Airport Simulation");
