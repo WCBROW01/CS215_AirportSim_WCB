@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -50,8 +51,8 @@ public class Window extends JFrame {
 		JMenu mnOptions = new JMenu("Options");
 		menuBar.add(mnOptions);
 		
-		JPanel panel = new Viewport();
-		getContentPane().add(panel, BorderLayout.CENTER);
+		JPanel viewport = new Viewport();
+		getContentPane().add(viewport, BorderLayout.CENTER);
 	}
 
 }

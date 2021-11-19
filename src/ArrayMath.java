@@ -21,6 +21,13 @@ public class ArrayMath {
 		return intArray;
 	}
 	
+	public static int[] add(int[] array, int n) {
+		for (int i = 0; i < array.length; i++)
+			array[i] += n;
+		
+		return array;
+	}
+	
 	/**
 	 * Multiply every element of an array by a fixed value.
 	 * @param array the input array
@@ -42,9 +49,17 @@ public class ArrayMath {
 	 */
 	public static int[] multiply(int[] array, float multiplier) {
 		for (int i = 0; i < array.length; i++)
-			array[i] *= 1.5;
+			array[i] *= multiplier;
 		
 		return array;
+	}
+	
+	public static int[] offsetFromCenter(int w, int h, float[] floatArray) {
+		int[] intArray = new int[floatArray.length];
+		for (int i = 0; i < floatArray.length; i++)
+			intArray[i] = (w / 2) + (int) (h * floatArray[i]);
+		
+		return intArray;
 	}
 	
 }
