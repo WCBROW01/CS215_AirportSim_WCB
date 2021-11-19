@@ -15,7 +15,7 @@ public class Window extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-	// Try to use the system theme.	
+		// Try to use the system theme.	
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
@@ -40,6 +40,7 @@ public class Window extends JFrame {
 	 * Create the frame.
 	 */
 	public Window() {
+		setTitle("Airport Simulation");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 640, 480);
 		

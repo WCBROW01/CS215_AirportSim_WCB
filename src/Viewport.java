@@ -18,18 +18,13 @@ public class Viewport extends JPanel {
 		runway = new Polygon();
 	}
 	
+	/**
+	 * Initialization routine for any possible custom polygons
+	 */
 	private void initPolygons() {
 		float[] runwayX = { getWidth() * (1/4f), getWidth() * (7/16f), getWidth() * (9/16f), getWidth() * (3/4f) };
-		float[] runwayY = { getHeight(), getHeight() / 2, getHeight() / 2, getHeight() };
-		runway = new Polygon(ftoi(runwayX), ftoi(runwayY), runwayX.length);
-	}
-	
-	private int[] ftoi(float[] floatArray) {
-		int intArray[] = new int[floatArray.length];
-		for (int i = 0; i < floatArray.length; i++)
-			intArray[i] = (int) floatArray[i];
-		
-		return intArray;
+		int[] runwayY = { getHeight(), getHeight() / 2, getHeight() / 2, getHeight() };
+		runway = new Polygon(ArrayMath.ftoi(runwayX), runwayY, runwayX.length);
 	}
 	
 	@Override
