@@ -6,9 +6,9 @@
  */
 public class Airplane implements Comparable<Airplane> {
 	
-	public final int INITIALLANDINGTIME =    300;
-	public final int INITIALDISTANCE    = 100000;
-	public final int SPEED              =    200; // speed in m/s
+	public final int INITIAL_LANDING_TIME =    300;
+	public final int INITIAL_DISTANCE     = 100000;
+	public final int SPEED                =    200; // speed in m/s
 	
 	private boolean hasEmergency;
 	private boolean readyToLand;
@@ -24,8 +24,8 @@ public class Airplane implements Comparable<Airplane> {
 		hasEmergency = false;
 		readyToLand = false;
 		isLanding = false;
-		landingTime = 300;
-		distance = 100000;
+		landingTime = INITIAL_LANDING_TIME;
+		distance = INITIAL_DISTANCE;
 		uid = (int) (Math.random() * 0x1000);
 	}
 	
